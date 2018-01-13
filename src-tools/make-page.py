@@ -30,14 +30,24 @@ factoid_files.sort()
 print_dbg("Files: " + str(factoid_files))
 
 doc = open(output_fn , "w")
-doc.write("<html>")
-doc.write("<head>")
-doc.write("<title>Factoids list</title>")
-doc.write("</head>")
-doc.write("<body>")
+doc.write("<html>\n")
+doc.write("<head>\n")
+doc.write("<title>Factoids list</title>\n")
+doc.write(
+'''
+
+<style>
+
+span.nobr { white-space: nowrap; }
+
+</style>
+
+''')
+doc.write("</head>\n")
+doc.write("\n\n<body>\n\n")
 doc.write("<p>Factoids list</p>")
 
-doc.write('<table border="1">')
+doc.write('<table border="1">\n\n')
 for factoid_n in factoid_files:
     factoid_fn = join(factoid_dir , factoid_n)
     with open(factoid_fn, 'r') as myfile:
@@ -45,20 +55,23 @@ for factoid_n in factoid_files:
     factoid_text = re.sub('[ ]+',' ',factoid_text); # normalize whitespace
     factoid_text = factoid_text.strip()
 
-    title = "`" + factoid_n
-    text = factoid_text
+    title = re.sub( r'^(.*)\.txt$' , r'\1' , factoid_n)
+    text_raw = factoid_text
+    text_html = html.escape(text_raw)
+    text_html = re.sub(r"(http[s]?://[^ \(\)\[\]]*)", r'<a href="\1">\1</a>', text_html)
+    text_html = re.sub(r'`([^ \(\)\[\]]+)', r'<a href="#\1">`\1</a>', text_html)
 
-    doc.write("<tr>")
+    doc.write("<tr>\n")
 
-    doc.write("<td>")
-    doc.write( html.escape(title) )
-    doc.write("</td>")
+    doc.write("<td id='" + html.escape(title) + "'>\n")
+    doc.write( "<span class='nobr'>`" + html.escape(title) + "</span>\n" )
+    doc.write("</td>\n")
 
-    doc.write("<td>")
-    doc.write( html.escape(text) )
-    doc.write("</td>")
+    doc.write("<td>\n")
+    doc.write( text_html + "\n")
+    doc.write("</td>\n")
 
-    doc.write("</tr>")
+    doc.write("</tr>\n\n")
 
 doc.write("</table>")
 

@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 #
 # (C) Copyrighted rfree 2017, BSD 3-clause Licence.
 #
@@ -38,7 +40,7 @@ doc.write(
 
 <style>
 
-span.nobr { white-space: nowrap; }
+.nobr { white-space: nowrap; }
 
 </style>
 
@@ -47,7 +49,7 @@ doc.write("</head>\n")
 doc.write("\n\n<body>\n\n")
 doc.write("<p>Factoids list</p>")
 
-doc.write('<table border="1">\n\n')
+doc.write('<table border="1" cellpadding="4">\n\n')
 for factoid_n in factoid_files:
     factoid_fn = join(factoid_dir , factoid_n)
     with open(factoid_fn, 'r') as myfile:
@@ -64,11 +66,11 @@ for factoid_n in factoid_files:
     doc.write("<tr>\n")
 
     doc.write("<td id='" + html.escape(title) + "'>\n")
-    doc.write( "<span class='nobr'>`" + html.escape(title) + "</span>\n" )
+    doc.write( "<code class='nobr'>`" + html.escape(title) + "</code>\n" )
     doc.write("</td>\n")
 
     doc.write("<td>\n")
-    doc.write( text_html + "\n")
+    doc.write( "<code>" + text_html + "</code>" + "\n")
     doc.write("</td>\n")
 
     doc.write("</tr>\n\n")

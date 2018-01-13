@@ -12,6 +12,7 @@ import re
 
 cfg_dir_factoids = '~/sopel-factoidfile/factoids-bitcoins/' # directory with the factoid files
 
+
 def info_user_error(bot,trigger,msg):
     bot.say('Error: '+msg, trigger.nick);
 
@@ -23,14 +24,25 @@ def check_filename_normal_no_parent(fn):
     if bool(re.match('^/\.',fn)): return False # hidden subfile/subdir "foo/.hide"
     return True
 
+def search_factoid_filename(factoid_name, db_dir):
+    fn = db_dir + factoid_name
+    if (os.path.isfile(fn)): return fn;
+    fn = db_dir + factoid_name.upper()
+    if (os.path.isfile(fn)): return fn;
+    fn = db_dir + factoid_name.lower()
+    if (os.path.isfile(fn)): return fn;
+    return "" # no factoid found
+
 def use_factoid(bot,trigger,factoid_name,target_users):
     # bot.replay("factoid name="+factoid_name)
     if (not check_filename_normal_no_parent(factoid_name)):
         info_user_error(bot,trigger,"Invalid factoid file name ("+factoid_name+")")
         return False
     try:
-        factoid_fn1 = cfg_dir_factoids + '/' + factoid_name + '.txt'
-        factoid_fn = os.path.expanduser(factoid_fn1)
+        factoid_fn = search_factoid_filename(
+            factoid_name + '.txt',
+            os.path.expanduser(cfg_dir_factoids) + '/'
+         )
         if (not os.path.isfile(factoid_fn)):
             info_user_error(bot,trigger,'No such factoid named '+factoid_name
                 +'. Ask me about: edit e.g. with `edit (best in private message)')

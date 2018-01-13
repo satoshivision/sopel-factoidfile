@@ -32,11 +32,12 @@ factoid_files.sort()
 print_dbg("Files: " + str(factoid_files))
 
 doc = open(output_fn , "w")
-doc.write("<html>\n")
-doc.write("<head>\n")
-doc.write("<title>Factoids list</title>\n")
 doc.write(
 '''
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 
 <style>
 
@@ -51,10 +52,36 @@ a:hover { color: #22aaff; }
 
 </style>
 
+</head>
+
 ''')
-doc.write("</head>\n")
-doc.write("\n\n<body>\n\n")
-doc.write("<p>Factoids list</p>")
+
+
+doc.write('''
+<body>
+
+<h1>Factoids for bot satoshivision_tm (a.k.a SatoshiVision™)</h1>
+
+<ul>
+<li>On IRC network Freenode, on chan #bitcoin and others where
+I &lt;sato_vision&gt; am, say <code>`spv</code> to display a factoid
+<a class="fact" href="#spv">`spv</a>.
+</li>
+<li>See factoid <a class="fact" href="#help">`help</a> to get started.</li>
+<li>See factoid <a class="fact" href="#edit">`edit</a> to edit this factoids.</li>
+</ul>
+
+<p>
+This list here can be <b>sometimes outdated</b>
+so also see list on
+<a href="https://github.com/satoshivision/factoids-bitcoins">https://github.com/satoshivision/factoids-bitcoins</a>
+and also see there the
+<a href="https://github.com/satoshivision/factoids-bitcoins/pulls">list of proposed changes (PRs)</a>.
+</p>
+
+<br/>
+
+''')
 
 doc.write('<table border="1" cellpadding="4">\n\n')
 for factoid_n in factoid_files:
@@ -84,6 +111,13 @@ for factoid_n in factoid_files:
 
 doc.write("</table>")
 
-doc.write("</body>")
+doc.write(
+'''
+
+</body>
+
+</html>
+'''
+)
 
 

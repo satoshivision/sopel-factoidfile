@@ -67,8 +67,8 @@ for factoid_n in factoid_files:
     title = re.sub( r'^(.*)\.txt$' , r'\1' , factoid_n)
     text_raw = factoid_text
     text_html = html.escape(text_raw)
-    text_html = re.sub(r"(http[s]?://[^ \(\)\[\]]*)", r'<a href="\1">\1</a>', text_html)
-    text_html = re.sub(r'`([^ \(\)\[\]]+)', r'<a class="fact" href="#\1">`\1</a>', text_html)
+    text_html = re.sub(r"(http[s]?://[a-zA-Z0-9_/.#-]*)", r'<a href="\1">\1</a>', text_html)
+    text_html = re.sub(r'`([a-zA-Z0-9_-]+)', r'<a class="fact" href="#\1">`\1</a>', text_html)
 
     doc.write("<tr>\n")
 

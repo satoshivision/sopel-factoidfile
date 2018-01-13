@@ -42,6 +42,13 @@ doc.write(
 
 .nobr { white-space: nowrap; }
 
+a.fact, a.fact:visited { color: #cc8800; }
+a.fact:hover { color: #ff9900; }
+
+a { color: #1144dd; }
+a:visited { color: #0000bb; }
+a:hover { color: #22aaff; }
+
 </style>
 
 ''')
@@ -61,7 +68,7 @@ for factoid_n in factoid_files:
     text_raw = factoid_text
     text_html = html.escape(text_raw)
     text_html = re.sub(r"(http[s]?://[^ \(\)\[\]]*)", r'<a href="\1">\1</a>', text_html)
-    text_html = re.sub(r'`([^ \(\)\[\]]+)', r'<a href="#\1">`\1</a>', text_html)
+    text_html = re.sub(r'`([^ \(\)\[\]]+)', r'<a class="fact" href="#\1">`\1</a>', text_html)
 
     doc.write("<tr>\n")
 

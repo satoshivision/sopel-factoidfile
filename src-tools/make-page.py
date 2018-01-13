@@ -13,7 +13,7 @@ from os.path import isfile, join
 
 cfg_dir_factoids = '~/sopel-factoidfile/factoids-bitcoins/' # directory with the factoid files
 
-output_fn="/var/www/html/facts/index.html"
+output_fn="/var/www/html/bitcoin-facts/index.html"
 
 def print_dbg(msg):
     print(msg);
